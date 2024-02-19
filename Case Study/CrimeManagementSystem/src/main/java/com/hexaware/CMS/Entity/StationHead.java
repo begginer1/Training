@@ -1,18 +1,14 @@
 package com.hexaware.CMS.entity;
 
 
-import java.util.ArrayList;
-import java.util.List;
 
-import jakarta.persistence.CascadeType;
+import com.hexaware.CMS.dto.StationHeadDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,26 +20,28 @@ public class StationHead {
 	@Column(name="station_head_id")
 	private int id;
 	private String name;
+	
+	@Column(name="email",unique=true)
 	private String email;
 	
-	
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="stationhead_officer_mapping",joinColumns=@JoinColumn(name="station_head_id",referencedColumnName = "station_head_id"),inverseJoinColumns = @JoinColumn(name="officer_id",referencedColumnName = "officer_id"))
-	private List<Officer> OfficerList=new ArrayList();
 
 	public StationHead() {
 		super();
 	}
 
-	public StationHead(int id, String name, String email, List<Officer> officerList) {
+	public StationHead(int id, String name, String email) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.email = email;
-		OfficerList = officerList;
+		this.email=email;
+	
 	}
-
+	public StationHead(StationHeadDTO stationHead) {
+		super();
+	
+		this.name = stationHead.getName();
+		this.email=stationHead.getEmail();
+	}
 	public int getId() {
 		return id;
 	}
@@ -51,6 +49,8 @@ public class StationHead {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	
 
 	public String getName() {
 		return name;
@@ -67,13 +67,10 @@ public class StationHead {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public List<Officer> getOfficerList() {
-		return OfficerList;
-	}
-
-	public void setOfficerList(List<Officer> officerList) {
-		OfficerList = officerList;
+	
+	@Override
+	public String toString() {
+		return "StationHead [id=" + id + ", name=" + name + ", email=" + email + "]";
 	}
 		
 }

@@ -1,14 +1,16 @@
 package com.hexaware.CMS.controller;
 
+import java.util.Optional;
+
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hexaware.CMS.dto.IncidentDTO;
 import com.hexaware.CMS.entity.Incident;
-import com.hexaware.CMS.entity.Officer;
+import com.hexaware.CMS.exception.NotExistException;
 import com.hexaware.CMS.service.OfficerService;
 
 
@@ -25,14 +27,39 @@ public class OfficerController {
 		}
 
 		
-		@GetMapping("ViewIncident")
-		public Incident ViewIncident(@RequestParam int incident_id) {
-			return officerService.viewIncident(incident_id);
+		@GetMapping("ViewIncidentById")
+		public Optional<IncidentDTO> ViewIncident(@RequestParam int incident_id)throws NotExistException {
+			
+			Optional<Incident> incidentOpt= officerService.viewIncident(incident_id);
+			if(incidentOpt.isEmpty())
+			{
+				throw new NotExistException("Incident Not exist");
+			}
+			IncidentDTO incidentDto=new IncidentDTO(incidentOpt.get());
+			return Optional.ofNullable(incidentDto);
 		}
 		
-		@GetMapping("DownloadIncident")
-		public Incident DownloadIncident(@RequestParam int incident_id) {
-			return officerService.downloadIncidentdetails(incident_id);
+		@GetMapping("DownloadIncidentById")
+		public Optional<IncidentDTO> DownloadIncident(@RequestParam int incident_id) throws NotExistException {
+			Optional<Incident> incidentOpt= officerService.downloadIncidentdetails(incident_id);
+			if(incidentOpt.isEmpty())
+			{
+				throw new NotExistException("Incident Not exist");
+			}
+			IncidentDTO incidentDto=new IncidentDTO(incidentOpt.get());
+			return Optional.ofNullable(incidentDto);
 		}
+		
+		@PutMapping("ClosedIncidentById")
+		public Optional<IncidentDTO> ChangeStatus(@RequestParam int incident_id) throws NotExistException {
+			Optional<Incident> incidentOpt=officerService.ChangeStatusToClosed(incident_id);
+			if(incidentOpt.isEmpty())
+			{
+				throw new NotExistException("Incident Not exist");
+			}
+			IncidentDTO incidentDto=new IncidentDTO(incidentOpt.get());
+			return Optional.ofNullable(incidentDto);
+		}
+		
 		
 }

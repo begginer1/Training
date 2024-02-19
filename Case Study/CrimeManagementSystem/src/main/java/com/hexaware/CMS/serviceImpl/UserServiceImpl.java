@@ -1,10 +1,8 @@
 package com.hexaware.CMS.serviceImpl;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
-import com.hexaware.CMS.dto.GenerateReportDTO;
+import com.hexaware.CMS.dto.UserDTO;
 import com.hexaware.CMS.entity.Incident;
 import com.hexaware.CMS.entity.User;
 import com.hexaware.CMS.repository.IncidentRepository;
@@ -34,14 +32,10 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public GenerateReportDTO generateReportById(int incident_id) {
+	public User generateReportById(int incident_id) {
 		int user_id=userRepository.getUserId(incident_id);
-		System.out.println(user_id);
 		User user=userRepository.getUser(user_id);
-		// officer
-//		int officer_id= officerRepository.IncidentOfficerMapping(incident_id);
-//		Officer officer=officerRepository.getOfficer(officer_id);
-		return new GenerateReportDTO(user,null);
+		return user;
 	}
 
 

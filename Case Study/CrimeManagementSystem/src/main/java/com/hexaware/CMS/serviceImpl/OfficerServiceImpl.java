@@ -1,5 +1,7 @@
 package com.hexaware.CMS.serviceImpl;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.hexaware.CMS.entity.Incident;
@@ -29,16 +31,24 @@ public class OfficerServiceImpl implements OfficerService{
 
 
 	@Override
-	public Incident viewIncident(int incident_id) {
+	public Optional<Incident> viewIncident(int incident_id) {
 		
-		return incidentRepository.findByid(incident_id);
+		return incidentRepository.findById(incident_id);
 	}
 
 
 	@Override
-	public Incident downloadIncidentdetails(int incident_id) {
-		return incidentRepository.findByid(incident_id);
+	public Optional<Incident> downloadIncidentdetails(int incident_id) {
+		return incidentRepository.findById(incident_id);
 		
+	}
+
+
+	@Override
+	public Optional<Incident> ChangeStatusToClosed(int incident_id) {
+		Incident incident=incidentRepository.findByid(incident_id);
+		incident.setStatus("Closed");
+		return Optional.ofNullable(incidentRepository.save(incident));
 	}
 
 }

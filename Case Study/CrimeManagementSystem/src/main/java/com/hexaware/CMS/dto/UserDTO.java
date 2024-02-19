@@ -1,4 +1,4 @@
-package com.hexaware.CMS.entity;
+package com.hexaware.CMS.dto;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -6,74 +6,61 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hexaware.CMS.dto.UserDTO;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.hexaware.CMS.entity.Incident;
+import com.hexaware.CMS.entity.User;
 
 
 //user-incidentList one to many
 //stationhead-incidentList 1 to many
 //1 station head -officer many to many
 
-@Entity
-@Table(name = "user")
 
-public class User {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "user_id")
+
+public class UserDTO {
+	
 	private Integer id;
-	@Column(name = "aadhar_number",unique = true,nullable = false)
+	
 	private BigInteger aadharNumber;
 	private String name;
-	@Column(name = "pan_number",unique = true,nullable = false)
+	
 	private String panNumber;
-	@Column(name = "date_of_birth")
+	
 	private LocalDate dateOfBirth;
 
 	private String address;
 	private int age;
 	
-	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-	@JoinColumn(name="fk_user_id")
+	
 	private	List<Incident> incident=new ArrayList<>();
-	public User() {
+	public UserDTO() {
 		super();
 	}
 	
 	
-	public User(Integer id, BigInteger aadharNumber, String name, String panNumber, LocalDate dateOfBirth, String address,
-			int age, List<Incident> incident) {
+	public UserDTO(BigInteger aadharNumber, String name, String panNumber, LocalDate dateOfBirth, String address,List<Incident> incident) {
 		super();
-		this.id = id;
+	
 		this.aadharNumber = aadharNumber;
 		this.name = name;
 		this.panNumber = panNumber;
 		this.dateOfBirth = dateOfBirth;
 		this.address = address;
-		this.age = age;
 		this.incident = incident;
 	}
-	
-	public User(UserDTO user) {
+
+
+	public UserDTO(User user) {
 		super();
+		this.id = user.getId();
 		this.aadharNumber = user.getAadharNumber();
 		this.name = user.getName();
 		this.panNumber = user.getPanNumber();
 		this.dateOfBirth = user.getDateOfBirth();
 		this.address = user.getAddress();
-		this.age = User.CalculateAge(dateOfBirth);
+		this.age = user.getAge();
 		this.incident = user.getIncident();
 	}
+
 
 	public Integer getId() {
 		return id;
@@ -133,14 +120,6 @@ public class User {
         
         int years = period.getYears();
 	return years;
-	}
-
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", aadharNumber=" + aadharNumber + ", name=" + name + ", panNumber=" + panNumber
-				+ ", dateOfBirth=" + dateOfBirth + ", address=" + address + ", age=" + age + ", incident=" + incident
-				+ "]";
 	}
 	
 	

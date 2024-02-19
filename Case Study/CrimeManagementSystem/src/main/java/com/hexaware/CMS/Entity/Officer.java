@@ -3,16 +3,16 @@ package com.hexaware.CMS.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hexaware.CMS.dto.OfficerDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
@@ -27,14 +27,13 @@ public class Officer {
 
 	private String name;
 
-	@Column(name="badge_number")
+	@Column(name="badge_number",unique=true)
 	private String badgeNumber;
 	
 	@Column(name="officer_rank")
 	private String rank;
-	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="officer_incident_mapping",joinColumns=@JoinColumn(name="officer_id",referencedColumnName ="officer_id"),inverseJoinColumns = @JoinColumn(name="incident_id",referencedColumnName = "incident_id"))
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.EAGER,mappedBy="officerList")
 	private List<Incident> incidentList=new ArrayList<>();
 	
 
@@ -52,6 +51,13 @@ public class Officer {
 		this.incidentList = incidentList;
 	}
 
+	public Officer( OfficerDTO officer) {
+		super();
+		this.name = officer.getName();
+		this.badgeNumber = officer.getBadgeNumber();
+		this.rank = officer.getRank();
+		this.incidentList = officer.getIncidentList();
+	}
 
 	public int getId() {
 		return id;
@@ -102,4 +108,17 @@ public class Officer {
 		this.incidentList = incidentList;
 	}
 
+	    public boolean equals(Officer obj) {
+	        if (this.id == obj.id) return true;
+	        return false;
+	        		
+	    }
+
+		@Override
+		public String toString() {
+			return "Officer [id=" + id + ", name=" + name + ", badgeNumber=" + badgeNumber + ", rank=" + rank
+					+ ", incidentList="  /*+ incidentList*/ + "]";
+		}
+	    
+	    
 }
