@@ -24,12 +24,5 @@ public class GlobalExceptionController {
 		ErrorDetails error=new ErrorDetails(LocalDate.now(),obj.getMessage(),req.getDescription(false),"Not Exist Exception");
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
-	
-	@ExceptionHandler(ResourceNotFoundException.class)
-	public ResponseEntity<ErrorDetails> handleResponseNotFoundException(ResourceNotFoundException obj,WebRequest req)
-	{
-		ErrorDetails error=new ErrorDetails(LocalDate.now(),obj.getMessage(),req.getDescription(false),"Response Not FoundException ");
-		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
-	}
 
 }

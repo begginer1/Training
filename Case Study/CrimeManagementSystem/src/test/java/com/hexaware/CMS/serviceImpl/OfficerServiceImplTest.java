@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.hexaware.CMS.entity.Incident;
+import com.hexaware.CMS.exception.NotExistException;
 import com.hexaware.CMS.service.OfficerService;
 @SpringBootTest
 public class OfficerServiceImplTest {
@@ -19,13 +20,13 @@ public class OfficerServiceImplTest {
 	
 
 	@Test
-	public void viewIncidentTest() {
+	public void viewIncidentTest() throws NotExistException {
 		Optional<Incident> incident=officerservice.viewIncident(1);
 		LOGGER.log(Level.INFO, "saved user " + incident.orElse(null));
 	}
 	
 	@Test
-	public void downloadIncidentdetailsTest() {
+	public void downloadIncidentdetailsTest() throws NotExistException {
 		Optional<Incident> incident=officerservice.downloadIncidentdetails(2);
 		LOGGER.log(Level.INFO, "saved user " + incident.orElse(null));
 		
@@ -33,7 +34,7 @@ public class OfficerServiceImplTest {
 	}
 	
 	@Test
-	public void ChangeStatusToClosedTest() {
+	public void ChangeStatusToClosedTest() throws NotExistException {
 		Optional<Incident> incident=officerservice.ChangeStatusToClosed(1);
 		LOGGER.log(Level.INFO, "saved user " + incident.orElse(null));
 		

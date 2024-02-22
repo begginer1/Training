@@ -12,10 +12,11 @@ public interface UserRepository extends JpaRepository<User,Integer>  {
 	//createIncident(String query)
 	@Query(value="select fk_user_id from incident where incident_id=:incident_id",nativeQuery =true)
 	int getUserId(int incident_id );
-//
+
+	
 	@Query(value="select * from user where user_id=:user_id",nativeQuery =true)
 	User getUser(int user_id);
-//	
+	
 //	Incident generateReportAll(int user_id);
 //	
 //	@Query(value="select status from incident where incident_id=:incident_id",nativeQuery = true)

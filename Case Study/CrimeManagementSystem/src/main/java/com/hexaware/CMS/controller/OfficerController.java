@@ -31,10 +31,6 @@ public class OfficerController {
 		public Optional<IncidentDTO> ViewIncident(@RequestParam int incident_id)throws NotExistException {
 			
 			Optional<Incident> incidentOpt= officerService.viewIncident(incident_id);
-			if(incidentOpt.isEmpty())
-			{
-				throw new NotExistException("Incident Not exist");
-			}
 			IncidentDTO incidentDto=new IncidentDTO(incidentOpt.get());
 			return Optional.ofNullable(incidentDto);
 		}
@@ -42,10 +38,6 @@ public class OfficerController {
 		@GetMapping("DownloadIncidentById")
 		public Optional<IncidentDTO> DownloadIncident(@RequestParam int incident_id) throws NotExistException {
 			Optional<Incident> incidentOpt= officerService.downloadIncidentdetails(incident_id);
-			if(incidentOpt.isEmpty())
-			{
-				throw new NotExistException("Incident Not exist");
-			}
 			IncidentDTO incidentDto=new IncidentDTO(incidentOpt.get());
 			return Optional.ofNullable(incidentDto);
 		}
@@ -53,10 +45,6 @@ public class OfficerController {
 		@PutMapping("ClosedIncidentById")
 		public Optional<IncidentDTO> ChangeStatus(@RequestParam int incident_id) throws NotExistException {
 			Optional<Incident> incidentOpt=officerService.ChangeStatusToClosed(incident_id);
-			if(incidentOpt.isEmpty())
-			{
-				throw new NotExistException("Incident Not exist");
-			}
 			IncidentDTO incidentDto=new IncidentDTO(incidentOpt.get());
 			return Optional.ofNullable(incidentDto);
 		}

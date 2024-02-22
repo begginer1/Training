@@ -8,7 +8,7 @@ import com.hexaware.CMS.entity.User;
 
 public interface IncidentRepository extends JpaRepository<Incident,Integer> {
 
-	Incident findByid(int id);
+
 		
 	
 

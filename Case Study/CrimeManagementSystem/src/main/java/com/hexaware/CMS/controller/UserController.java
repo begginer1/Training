@@ -1,6 +1,5 @@
 package com.hexaware.CMS.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +13,7 @@ import com.hexaware.CMS.dto.UserDTO;
 import com.hexaware.CMS.entity.Incident;
 import com.hexaware.CMS.entity.User;
 import com.hexaware.CMS.exception.AlreadyExistException;
+import com.hexaware.CMS.exception.NotExistException;
 import com.hexaware.CMS.service.UserService;
 
 @RestController
@@ -28,25 +28,24 @@ public class UserController {
 	}
 
 	@PostMapping("CreateUser")
-	public ResponseEntity<User>CreateUser(@RequestBody User user) throws AlreadyExistException{
-		try {
-		return new ResponseEntity<>(userService.generateIncident(user),HttpStatus.OK);
-	}
-		catch(Exception e)
-		{
-			throw new AlreadyExistException("User Already Exists");
-		}
+	public ResponseEntity<User>CreateUser(@RequestBody UserDTO userDto) throws AlreadyExistException{
+		User user=new User(userDto);
+		userService.generateIncident(user);
+		 userDto=new UserDTO(user);
+		return ResponseEntity.ok(user);
 	}
 
 	@GetMapping("GenerateReport")
-	public UserDTO GetReport(@RequestParam int inc_id) {
-		UserDTO userDto=new UserDTO(userService.generateReportById(inc_id));
+	public UserDTO GetReport(@RequestParam int inc_id) throws NotExistException {
+		User user=userService.generateReportById(inc_id).get();
+		UserDTO userDto=new UserDTO(user);
 	return userDto;
 	}
 
 	@GetMapping("TrackProgress")
-	public IncidentDTO GetStatus(@RequestParam int inc_id) {
-		IncidentDTO incidentDto= new IncidentDTO(userService.trackIncidentById(inc_id));
+	public IncidentDTO GetStatus(@RequestParam int inc_id) throws NotExistException {
+		Incident incident=userService.trackIncidentById(inc_id).get();
+		IncidentDTO incidentDto= new IncidentDTO(incident);
 	return incidentDto;
 	}
 

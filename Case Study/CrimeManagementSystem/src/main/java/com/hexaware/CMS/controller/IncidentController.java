@@ -22,8 +22,6 @@ public class IncidentController {
 			this.incidentService = incidentService;
 		}
 
-
-
 		@PostMapping("generateIncident")
 		public IncidentDTO createIncident(@RequestBody IncidentDTO incidentDto)  {
 			Incident incident=new Incident(incidentDto);

@@ -12,7 +12,6 @@ import com.hexaware.CMS.entity.Incident;
 import com.hexaware.CMS.entity.Officer;
 import com.hexaware.CMS.entity.StationHead;
 import com.hexaware.CMS.exception.NotExistException;
-import com.hexaware.CMS.exception.ResourceNotFoundException;
 import com.hexaware.CMS.repository.IncidentRepository;
 import com.hexaware.CMS.repository.OfficerRepository;
 import com.hexaware.CMS.repository.StationHeadRepository;

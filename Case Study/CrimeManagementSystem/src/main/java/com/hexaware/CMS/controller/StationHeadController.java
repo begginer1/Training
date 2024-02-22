@@ -41,7 +41,7 @@ public class StationHeadController {
 		StationHead stationHead=new StationHead(stationHeadDto);
 		try {
 			stationHeadDto=new	StationHeadDTO(stationHeadService.createStationHead(stationHead));
-		return new ResponseEntity<>(stationHeadDto,HttpStatus.OK);
+		return ResponseEntity.ok(stationHeadDto);
 	}
 		catch(Exception e)
 		{
@@ -50,9 +50,9 @@ public class StationHeadController {
 	}
 
 	@DeleteMapping("DeleteOfficer")
-	public List<Officer> RemoveOfficer(@RequestParam int officer_id) {
+	public List<OfficerDTO> RemoveOfficer(@RequestParam int officer_id) {
 
-		return stationHeadService.removeOfficer(officer_id);
+		return stationHeadService.removeOfficer(officer_id).stream().map((officer)->new OfficerDTO(officer)).toList();
 	}
 
 	@PostMapping("RegisterOfficer")
@@ -60,7 +60,7 @@ public class StationHeadController {
 		try {
 			Officer officer=new Officer(officerDto); 
 			officerDto=new OfficerDTO(stationHeadService.addOfficer(officer));
-			return new ResponseEntity<>(officerDto,HttpStatus.OK);
+			return ResponseEntity.ok(officerDto);
 		}
 			catch(Exception e)
 			{
@@ -75,12 +75,12 @@ public class StationHeadController {
 				if(!(incidentOpt.isPresent()))
 				throw new NotExistException("Incident Not Found");
 				IncidentDTO incidentDto=new IncidentDTO(incidentOpt.get());
-			return new ResponseEntity<>(incidentDto,HttpStatus.OK);
+			return ResponseEntity.ok(incidentDto);
 	}
 
 	@GetMapping("ViewAllIncident")
-	public List<Incident> ViewAllIncidents() {
-		return stationHeadService.ViewAllIncidents();
+	public List<IncidentDTO> ViewAllIncidents() {
+		return stationHeadService.ViewAllIncidents().stream().map((incident)->new IncidentDTO(incident)).toList();
 	}
 
 	@GetMapping("ViewAllOfficer")
@@ -92,6 +92,6 @@ public class StationHeadController {
 	@PostMapping("AssignOfficerToIncident/{incident_id}/officer/{officer_id}")
 	public ResponseEntity<IncidentDTO> AssignOfficerToIncident(@PathVariable Integer incident_id,@PathVariable Integer officer_id) throws NotExistException {
 		IncidentDTO incidentDto=new IncidentDTO(stationHeadService.AssignOfficerToIncident(incident_id,officer_id));
-		return new ResponseEntity<>(incidentDto,HttpStatus.OK);
+		return ResponseEntity.ok(incidentDto);
 	}
 }
