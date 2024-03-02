@@ -16,6 +16,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -32,12 +33,12 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private Integer id;
-	@Column(name = "aadhar_number",unique = true,nullable = false)
+	@Column(name = "aadhar_number",unique=true,nullable = false)
 	private BigInteger aadharNumber;
 	private String name;
-	@Column(name = "pan_number",unique = true,nullable = false)
+	@Column(name = "pan_number",unique=true,nullable = false)
 	private String panNumber;
-	@Column(name = "date_of_birth")
+	@Column(name = "date_of_birth",nullable = false)
 	private LocalDate dateOfBirth;
 
 	private String address;

@@ -9,9 +9,6 @@ import com.hexaware.CMS.entity.Officer;
 
 public class IncidentDTO {
 
-	
-	
-
 	private Integer id;
 	private String status;
 	private String incidentType;
@@ -22,7 +19,6 @@ public class IncidentDTO {
 	private String image;
 	private String description;
 	private String location;
-	
 	private Set<Officer> officerList;
 	public IncidentDTO() {
 		super();
@@ -102,6 +98,14 @@ public class IncidentDTO {
 	public void setOfficerList(Set<Officer> officerList) {
 		this.officerList = officerList;
 	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	
 	
 	
 }

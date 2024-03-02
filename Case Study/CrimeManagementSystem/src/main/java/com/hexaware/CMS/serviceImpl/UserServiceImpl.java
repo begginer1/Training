@@ -1,9 +1,11 @@
 package com.hexaware.CMS.serviceImpl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.hexaware.CMS.dto.IncidentDTO;
 import com.hexaware.CMS.entity.Incident;
 import com.hexaware.CMS.entity.User;
 import com.hexaware.CMS.exception.AlreadyExistException;
@@ -48,6 +50,8 @@ public class UserServiceImpl implements UserService {
 		{
 		int user_id=userRepository.getUserId(incident_id);
 		 user=userRepository.getUser(user_id);
+		Optional<Incident> incidentOpt=incidentRepostory.findById(incident_id);
+		user.setIncident(List.of(incidentOpt.get()));
 		}
 		catch(Exception e)
 		{
@@ -65,6 +69,33 @@ public class UserServiceImpl implements UserService {
 			throw new NotExistException("Incident Not found");
 		}
 		return IncidentOpt;
+	}
+
+	
+
+	@Override
+	public Optional<List<Incident>> getAllIncident(int userId) throws NotExistException {
+		Optional<List<Incident>> incidentList=incidentRepostory.findAllFkUserId(userId);
+		if(incidentList==null)
+		{
+			throw new NotExistException("No Incident to show");
+		}
+			return incidentList;
+	}
+
+	@Override
+	public Optional<Incident> AddIncident(int user_id, Incident incident) throws NotExistException {
+		Optional<User> userOpt=userRepository.findById(user_id);
+		if(userOpt.isEmpty())
+		{
+			throw new NotExistException("User Not found");
+		}
+		List <Incident> incidentList=userOpt.get().getIncident();
+		incidentList.add(incident);
+		userOpt.get().setIncident(incidentList);
+		userRepository.save(userOpt.get());
+		return Optional.of(incident);
+		
 	}
 
 

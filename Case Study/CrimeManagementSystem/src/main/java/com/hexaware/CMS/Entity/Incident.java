@@ -38,7 +38,6 @@ public class Incident {
 	private String image;
 	private String description;
 	private String location;
-	
 	@CreationTimestamp
 	@Column(name="creation_date")
 	private String CreationDate;	
@@ -130,11 +129,20 @@ public class Incident {
 	public void setOfficerList(Set<Officer> officerList) {
 		this.officerList = officerList;
 	}
+	
+	public String getCreationDate() {
+		return CreationDate;
+	}
+	public void setCreationDate(String creationDate) {
+		CreationDate = creationDate;
+	}
 	@Override
 	public String toString() {
 		return "Incident [id=" + id + ", status=" + status + ", incidentType=" + incidentType + ", itemName=" + itemName
 				+ ", itemAmount=" + itemAmount + ", image=" + image + ", description=" + description + ", location="
 				+ location + ", CreationDate=" + CreationDate + ", officerList=" + officerList + "]";
 	}
+	
+	
 	
 }
