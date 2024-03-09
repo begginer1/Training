@@ -39,7 +39,7 @@ public class StationHeadServiceImplTest {
 	@Test
 	public void  addOfficerTest() {
 		List<Incident> incidentList=new ArrayList<>();
-		Officer officer = new Officer(2,"kunal" ,"ak123" ,"IPS",incidentList);
+		Officer officer = new Officer(2,"kunal" ,"ak123" ,"IPS","off1@gmail.com",incidentList);
 		officer=stationHeadService.addOfficer(officer);
 		LOGGER.log(Level.INFO, "saved Officer " + officer);
 	}

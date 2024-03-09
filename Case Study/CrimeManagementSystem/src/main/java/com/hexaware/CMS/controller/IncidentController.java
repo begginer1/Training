@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hexaware.CMS.dto.IncidentDTO;
+import com.hexaware.CMS.dto.IncidentDto;
 import com.hexaware.CMS.entity.Incident;
 import com.hexaware.CMS.exception.AlreadyExistException;
 import com.hexaware.CMS.service.IncidentService;
@@ -23,9 +23,9 @@ public class IncidentController {
 		}
 
 		@PostMapping("generateIncident")
-		public IncidentDTO createIncident(@RequestBody IncidentDTO incidentDto)  {
+		public IncidentDto createIncident(@RequestBody IncidentDto incidentDto)  {
 			Incident incident=new Incident(incidentDto);
-			incidentDto=new IncidentDTO(incidentService.generateIncident(incident));
+			incidentDto=new IncidentDto(incidentService.generateIncident(incident));
 			return incidentDto;
 		}
 	}

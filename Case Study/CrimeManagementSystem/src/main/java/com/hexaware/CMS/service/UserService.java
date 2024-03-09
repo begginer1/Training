@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.hexaware.CMS.dto.IncidentDTO;
+import com.hexaware.CMS.dto.IncidentDto;
 import com.hexaware.CMS.entity.Incident;
 import com.hexaware.CMS.entity.User;
 import com.hexaware.CMS.exception.AlreadyExistException;

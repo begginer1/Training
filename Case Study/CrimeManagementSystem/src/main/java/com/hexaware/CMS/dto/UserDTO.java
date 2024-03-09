@@ -16,7 +16,7 @@ import com.hexaware.CMS.entity.User;
 
 
 
-public class UserDTO {
+public class UserDto {
 	
 	private Integer id;
 	
@@ -26,36 +26,38 @@ public class UserDTO {
 	private String panNumber;
 	
 	private LocalDate dateOfBirth;
-
+	private String email;
 	private String address;
 	private int age;
 	
 	
 	private	List<Incident> incident=new ArrayList<>();
-	public UserDTO() {
+	public UserDto() {
 		super();
 	}
 	
 	
-	public UserDTO(BigInteger aadharNumber, String name, String panNumber, LocalDate dateOfBirth, String address,List<Incident> incident) {
+	public UserDto(BigInteger aadharNumber, String name, String panNumber, LocalDate dateOfBirth,String email, String address,List<Incident> incident) {
 		super();
 	
 		this.aadharNumber = aadharNumber;
 		this.name = name;
 		this.panNumber = panNumber;
 		this.dateOfBirth = dateOfBirth;
+		this.email=email;
 		this.address = address;
 		this.incident = incident;
 	}
 
 
-	public UserDTO(User user) {
+	public UserDto(User user) {
 		super();
 		this.id = user.getId();
 		this.aadharNumber = user.getAadharNumber();
 		this.name = user.getName();
 		this.panNumber = user.getPanNumber();
 		this.dateOfBirth = user.getDateOfBirth();
+		this.email=user.getEmail();
 		this.address = user.getAddress();
 		this.age = user.getAge();
 		this.incident = user.getIncident();
@@ -111,17 +113,24 @@ public class UserDTO {
 		this.incident = incident;
 	}
 
-	public static int CalculateAge(LocalDate dateOfBirth)
-	{
- 
-        LocalDate currentDate = LocalDate.now();
-        
-        Period period = Period.between(dateOfBirth, currentDate);
-        
-        int years = period.getYears();
-	return years;
-	}
 	
+	
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return "UserDto [id=" + id + ", aadharNumber=" + aadharNumber + ", name=" + name + ", panNumber=" + panNumber
+				+ ", dateOfBirth=" + dateOfBirth + ", email=" + email + ", address=" + address + ", age=" + age
+				+ ", incident=" + incident + "]";
+	}
+
 	
 
 }

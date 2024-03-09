@@ -27,9 +27,9 @@ public class UserServiceImplTest {
 
 	@Test
 	public void generateIncidentTest() throws AlreadyExistException {
-		Incident incident=new Incident(12,"Intiated","Lost Property","Purse","1000","Purse.img","Brown Leather","Near Gurgaon",new HashSet<Officer>());
-		User user = new User(1,new BigInteger("123456789012"),"John Doe","ABCDE1234F",LocalDate.of(1990,05,15),"123 Main St, City, Country",
-				User.CalculateAge(LocalDate.of(1990,05,15)),List.of(incident));
+		Incident incident=new Incident(12,"Intiated","Lost Property","Purse","1000","Purse.img","Brown Leather","Near Gurgaon",LocalDate.of(2023,05,15),new HashSet<Officer>());
+		User user = new User(1,new BigInteger("123456789012"),"John Doe","ABCDE1234F",LocalDate.of(1990,05,15),"123 Main St, City, Country"
+				,"user@gmail.com",User.CalculateAge(LocalDate.of(1990,05,15)),List.of(incident));
 		user = UserServiceImpl.generateIncident(user);
 		LOGGER.log(Level.INFO, "saved user " + user);
 

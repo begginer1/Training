@@ -9,7 +9,7 @@ import com.hexaware.CMS.entity.Officer;
 
 
 
-public class OfficerDTO {
+public class OfficerDto {
 	
 	private int id;
 
@@ -20,28 +20,30 @@ public class OfficerDTO {
 	private String rank;
 	private List<Incident> incidentList=new ArrayList<>();
 	
-
-	public OfficerDTO() {
+	private String email;
+	public OfficerDto() {
 		super();
 	}
 
 
-	public OfficerDTO(String name, String badgeNumber, String rank, List<Incident> incidentList) {
+	public OfficerDto(String name, String badgeNumber, String rank, List<Incident> incidentList) {
 		super();
 		this.name = name;
 		this.badgeNumber = badgeNumber;
 		this.rank = rank;
 		this.incidentList = incidentList;
+		this.email=email;
 	}
 
 
-	public OfficerDTO( Officer officer) {
+	public OfficerDto( Officer officer) {
 		super();
 		this.id = officer.getId();
 		this.name = officer.getName();
 		this.badgeNumber = officer.getBadgeNumber();
 		this.rank = officer.getRank();
 		this.incidentList = officer.getIncidentList();
+		this.email=officer.getEmail();
 	}
 
 
@@ -92,6 +94,16 @@ public class OfficerDTO {
 
 	public void setIncidentList(List<Incident> incidentList) {
 		this.incidentList = incidentList;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

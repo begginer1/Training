@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.hexaware.CMS.dto.OfficerDTO;
+import com.hexaware.CMS.dto.OfficerDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,6 +32,8 @@ public class Officer {
 	
 	@Column(name="officer_rank")
 	private String rank;
+	
+	private String email;
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.EAGER,mappedBy="officerList")
 	private List<Incident> incidentList=new ArrayList<>();
@@ -42,21 +44,23 @@ public class Officer {
 	}
 
 
-	public Officer(int id, String name, String badgeNumber, String rank, List<Incident> incidentList) {
+	public Officer(int id, String name, String badgeNumber, String rank, String email, List<Incident> incidentList) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.badgeNumber = badgeNumber;
 		this.rank = rank;
 		this.incidentList = incidentList;
+		this.email=email;
 	}
 
-	public Officer( OfficerDTO officer) {
+	public Officer( OfficerDto officer) {
 		super();
 		this.name = officer.getName();
 		this.badgeNumber = officer.getBadgeNumber();
 		this.rank = officer.getRank();
 		this.incidentList = officer.getIncidentList();
+		this.email=officer.getEmail();
 	}
 
 	public int getId() {
@@ -71,6 +75,17 @@ public class Officer {
 
 	public String getName() {
 		return name;
+	}
+	
+	
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 
@@ -114,11 +129,14 @@ public class Officer {
 	        		
 	    }
 
+
 		@Override
 		public String toString() {
 			return "Officer [id=" + id + ", name=" + name + ", badgeNumber=" + badgeNumber + ", rank=" + rank
-					+ ", incidentList="  /*+ incidentList*/ + "]";
+					+ ", email=" + email + ", incidentList=" + incidentList + "]";
 		}
+
+		
 	    
 	    
 }

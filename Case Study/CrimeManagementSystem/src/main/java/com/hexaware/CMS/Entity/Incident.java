@@ -1,10 +1,11 @@
 package com.hexaware.CMS.entity;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.hexaware.CMS.dto.IncidentDTO;
+import com.hexaware.CMS.dto.IncidentDto;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -38,9 +39,11 @@ public class Incident {
 	private String image;
 	private String description;
 	private String location;
+	private  LocalDate date_Of_Incident;
+	
 	@CreationTimestamp
 	@Column(name="creation_date")
-	private String CreationDate;	
+	private LocalDate CreationDate;	
 	
 	
 	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
@@ -50,7 +53,7 @@ public class Incident {
 		super();
 	}
 	public Incident(Integer id, String status, String incidentType, String itemName, String itemAmount, String image,
-			String description, String location, Set<Officer> officerList) {
+			String description, String location,LocalDate date_Of_Incident, Set<Officer> officerList) {
 		super();
 		this.id = id;
 		this.status = status;
@@ -61,9 +64,10 @@ public class Incident {
 		this.description = description;
 		this.location = location;
 		this.officerList = officerList;
+		this.date_Of_Incident=date_Of_Incident;
 	}
 	
-	public Incident(IncidentDTO incident) {
+	public Incident(IncidentDto incident) {
 		super();
 		this.status = "Initiated";
 		this.incidentType = incident.getIncidentType();
@@ -73,6 +77,7 @@ public class Incident {
 		this.description = incident.getDescription();
 		this.location = incident.getLocation();
 		this.officerList = incident.getOfficerList();
+		this.date_Of_Incident=incident.getDate_Of_Incident();
 	}
 	public Integer getId() {
 		return id;
@@ -130,18 +135,29 @@ public class Incident {
 		this.officerList = officerList;
 	}
 	
-	public String getCreationDate() {
+	public LocalDate getCreationDate() {
 		return CreationDate;
 	}
-	public void setCreationDate(String creationDate) {
+	public void setCreationDate(LocalDate creationDate) {
 		CreationDate = creationDate;
+	}
+	
+	
+	
+	public LocalDate getDate_Of_Incident() {
+		return date_Of_Incident;
+	}
+	public void setDate_Of_Incident(LocalDate date_Of_Incident) {
+		this.date_Of_Incident = date_Of_Incident;
 	}
 	@Override
 	public String toString() {
 		return "Incident [id=" + id + ", status=" + status + ", incidentType=" + incidentType + ", itemName=" + itemName
 				+ ", itemAmount=" + itemAmount + ", image=" + image + ", description=" + description + ", location="
-				+ location + ", CreationDate=" + CreationDate + ", officerList=" + officerList + "]";
+				+ location + ", date_Of_Incident=" + date_Of_Incident + ", CreationDate=" + CreationDate
+				+ ", officerList=" + officerList + "]";
 	}
+	
 	
 	
 	

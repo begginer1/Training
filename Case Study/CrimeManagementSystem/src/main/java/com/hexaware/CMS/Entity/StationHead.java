@@ -2,7 +2,7 @@ package com.hexaware.CMS.entity;
 
 
 
-import com.hexaware.CMS.dto.StationHeadDTO;
+import com.hexaware.CMS.dto.StationHeadDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,7 +36,7 @@ public class StationHead {
 		this.email=email;
 	
 	}
-	public StationHead(StationHeadDTO stationHead) {
+	public StationHead(StationHeadDto stationHead) {
 		super();
 	
 		this.name = stationHead.getName();

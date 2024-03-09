@@ -5,23 +5,23 @@ package com.hexaware.CMS.dto;
 import com.hexaware.CMS.entity.StationHead;
 
 
-public class StationHeadDTO {
+public class StationHeadDto {
 	
 	private int id;
 	private String name;
 	private String email;
 	
 
-	public StationHeadDTO() {
+	public StationHeadDto() {
 		super();
 	}
 
-	public StationHeadDTO( String name, String email) {
+	public StationHeadDto( String name, String email) {
 		super();
 		this.name = name;
 	
 	}
-	public StationHeadDTO(StationHead stationHead) {
+	public StationHeadDto(StationHead stationHead) {
 		super();
 		this.id = stationHead.getId();
 		this.name = stationHead.getName();

@@ -1,5 +1,6 @@
 package com.hexaware.CMS.dto;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import com.hexaware.CMS.entity.Incident;
@@ -7,7 +8,7 @@ import com.hexaware.CMS.entity.Officer;
 
 
 
-public class IncidentDTO {
+public class IncidentDto {
 
 	private Integer id;
 	private String status;
@@ -19,12 +20,13 @@ public class IncidentDTO {
 	private String image;
 	private String description;
 	private String location;
+	private LocalDate date_Of_Incident;
 	private Set<Officer> officerList;
-	public IncidentDTO() {
+	public IncidentDto() {
 		super();
 	}
-	public IncidentDTO( String incidentType, String itemName, String itemAmount, String image,
-			String description, String location, Set<Officer> officerList) {
+	public IncidentDto( String incidentType, String itemName, String itemAmount, String image,
+			String description, String location, Set<Officer> officerList, LocalDate date_Of_Incident) {
 		super();
 		
 		this.incidentType = incidentType;
@@ -34,9 +36,10 @@ public class IncidentDTO {
 		this.description = description;
 		this.location = location;
 		this.officerList = officerList;
+		this.date_Of_Incident=date_Of_Incident;
 	}
 	
-	public IncidentDTO(Incident incident) {
+	public IncidentDto(Incident incident) {
 		super();
 		this.id=incident.getId();
 		this.status=incident.getStatus();
@@ -47,6 +50,7 @@ public class IncidentDTO {
 		this.description = incident.getDescription();
 		this.location = incident.getLocation();
 		this.officerList = incident.getOfficerList();
+		this.date_Of_Incident=incident.getDate_Of_Incident();
 	}
 	
 	public String getStatus() {
@@ -103,6 +107,12 @@ public class IncidentDTO {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public LocalDate getDate_Of_Incident() {
+		return date_Of_Incident;
+	}
+	public void setDate_Of_Incident(LocalDate date_Of_Incident) {
+		this.date_Of_Incident = date_Of_Incident;
 	}
 	
 	

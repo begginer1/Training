@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hexaware.CMS.dto.IncidentDTO;
+import com.hexaware.CMS.dto.IncidentDto;
 import com.hexaware.CMS.entity.Incident;
 import com.hexaware.CMS.exception.NotExistException;
 import com.hexaware.CMS.service.OfficerService;
@@ -28,24 +28,24 @@ public class OfficerController {
 
 		
 		@GetMapping("ViewIncidentById")
-		public Optional<IncidentDTO> ViewIncident(@RequestParam int incident_id)throws NotExistException {
+		public Optional<IncidentDto> ViewIncident(@RequestParam int incident_id)throws NotExistException {
 			
 			Optional<Incident> incidentOpt= officerService.viewIncident(incident_id);
-			IncidentDTO incidentDto=new IncidentDTO(incidentOpt.get());
+			IncidentDto incidentDto=new IncidentDto(incidentOpt.get());
 			return Optional.ofNullable(incidentDto);
 		}
 		
 		@GetMapping("DownloadIncidentById")
-		public Optional<IncidentDTO> DownloadIncident(@RequestParam int incident_id) throws NotExistException {
+		public Optional<IncidentDto> DownloadIncident(@RequestParam int incident_id) throws NotExistException {
 			Optional<Incident> incidentOpt= officerService.downloadIncidentdetails(incident_id);
-			IncidentDTO incidentDto=new IncidentDTO(incidentOpt.get());
+			IncidentDto incidentDto=new IncidentDto(incidentOpt.get());
 			return Optional.ofNullable(incidentDto);
 		}
 		
 		@PutMapping("ClosedIncidentById")
-		public Optional<IncidentDTO> ChangeStatus(@RequestParam int incident_id) throws NotExistException {
+		public Optional<IncidentDto> ChangeStatus(@RequestParam int incident_id) throws NotExistException {
 			Optional<Incident> incidentOpt=officerService.ChangeStatusToClosed(incident_id);
-			IncidentDTO incidentDto=new IncidentDTO(incidentOpt.get());
+			IncidentDto incidentDto=new IncidentDto(incidentOpt.get());
 			return Optional.ofNullable(incidentDto);
 		}
 		

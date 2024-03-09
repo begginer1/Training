@@ -6,7 +6,7 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hexaware.CMS.dto.UserDTO;
+import com.hexaware.CMS.dto.UserDto;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -40,7 +40,8 @@ public class User {
 	private String panNumber;
 	@Column(name = "date_of_birth",nullable = false)
 	private LocalDate dateOfBirth;
-
+	@Column(name = "email",unique=true)
+	private String email;
 	private String address;
 	private int age;
 	
@@ -52,7 +53,7 @@ public class User {
 	}
 	
 	
-	public User(Integer id, BigInteger aadharNumber, String name, String panNumber, LocalDate dateOfBirth, String address,
+	public User(Integer id, BigInteger aadharNumber, String name, String panNumber, LocalDate dateOfBirth,String email, String address,
 			int age, List<Incident> incident) {
 		super();
 		this.id = id;
@@ -60,70 +61,115 @@ public class User {
 		this.name = name;
 		this.panNumber = panNumber;
 		this.dateOfBirth = dateOfBirth;
+		this.email=email;
 		this.address = address;
 		this.age = age;
 		this.incident = incident;
 	}
 	
-	public User(UserDTO user) {
+	public User(UserDto user) {
 		super();
 		this.aadharNumber = user.getAadharNumber();
 		this.name = user.getName();
 		this.panNumber = user.getPanNumber();
 		this.dateOfBirth = user.getDateOfBirth();
+		this.email=user.getEmail();
 		this.address = user.getAddress();
 		this.age = User.CalculateAge(dateOfBirth);
 		this.incident = user.getIncident();
 	}
 
+	
+
 	public Integer getId() {
 		return id;
 	}
+
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+
 	public BigInteger getAadharNumber() {
 		return aadharNumber;
 	}
+
+
 	public void setAadharNumber(BigInteger aadharNumber) {
 		this.aadharNumber = aadharNumber;
 	}
+
+
 	public String getName() {
 		return name;
 	}
+
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
 	public String getPanNumber() {
 		return panNumber;
 	}
+
+
 	public void setPanNumber(String panNumber) {
 		this.panNumber = panNumber;
 	}
+
+
 	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
+
+
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
 	public String getAddress() {
 		return address;
 	}
+
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+
 	public int getAge() {
 		return age;
 	}
+
+
 	public void setAge(int age) {
 		this.age = age;
 	}
+
+
 	public List<Incident> getIncident() {
 		return incident;
 	}
+
+
 	public void setIncident(List<Incident> incident) {
 		this.incident = incident;
 	}
+
 
 	public static int CalculateAge(LocalDate dateOfBirth)
 	{
@@ -140,9 +186,12 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", aadharNumber=" + aadharNumber + ", name=" + name + ", panNumber=" + panNumber
-				+ ", dateOfBirth=" + dateOfBirth + ", address=" + address + ", age=" + age + ", incident=" + incident
-				+ "]";
+				+ ", dateOfBirth=" + dateOfBirth + ", email=" + email + ", address=" + address + ", age=" + age
+				+ ", incident=" + incident + "]";
 	}
+
+
+	
 	
 	
 

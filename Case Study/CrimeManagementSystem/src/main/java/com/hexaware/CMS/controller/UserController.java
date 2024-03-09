@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hexaware.CMS.dto.IncidentDTO;
-import com.hexaware.CMS.dto.UserDTO;
+import com.hexaware.CMS.dto.IncidentDto;
+import com.hexaware.CMS.dto.UserDto;
 import com.hexaware.CMS.entity.Incident;
 import com.hexaware.CMS.entity.User;
 import com.hexaware.CMS.exception.AlreadyExistException;
@@ -35,40 +35,40 @@ public class UserController {
 	}
 
 	@PostMapping("CreateUser")
-	public ResponseEntity<User>CreateUser(@RequestBody UserDTO userDto) throws AlreadyExistException{
+	public ResponseEntity<User>CreateUser(@RequestBody UserDto userDto) throws AlreadyExistException{
 		User user=new User(userDto);
 		userService.generateIncident(user);
-		 userDto=new UserDTO(user);
+		 userDto=new UserDto(user);
 		return ResponseEntity.ok(user);
 	}
 	@PostMapping("AddIncident/{user_id}")
-	public ResponseEntity<IncidentDTO>AddIncident(@PathVariable int user_id, @RequestBody IncidentDTO incidentDto) throws NotExistException{
+	public ResponseEntity<IncidentDto>AddIncident(@PathVariable int user_id, @RequestBody IncidentDto incidentDto) throws NotExistException{
 		Incident incident=new Incident(incidentDto);
 		userService.AddIncident(user_id, incident);
-		incidentDto=new IncidentDTO(incident);
+		incidentDto=new IncidentDto(incident);
 		return ResponseEntity.ok(incidentDto);
 	}
 
 	@GetMapping("GenerateReport")
-	public UserDTO GetReport(@RequestParam int incidentId) throws NotExistException {
+	public UserDto GetReport(@RequestParam int incidentId) throws NotExistException {
 		User user=userService.generateReportById(incidentId).get();
-		UserDTO userDto=new UserDTO(user);
+		UserDto userDto=new UserDto(user);
 	return userDto;
 	}
 
 	@GetMapping("TrackProgress")
-	public IncidentDTO GetStatus(@RequestParam int incidentId) throws NotExistException {
+	public IncidentDto GetStatus(@RequestParam int incidentId) throws NotExistException {
 		Incident incident=userService.trackIncidentById(incidentId).get();
-		IncidentDTO incidentDto= new IncidentDTO(incident);
+		IncidentDto incidentDto= new IncidentDto(incident);
 	return incidentDto;
 	}
 
 	@GetMapping("GetAllIncident/{userId}")
-	public List<IncidentDTO> GetIncident(@PathVariable int userId) throws NotExistException {
+	public List<IncidentDto> GetIncident(@PathVariable int userId) throws NotExistException {
 		Optional<List<Incident>> incidentOpt=userService.getAllIncident(userId);
-		List<IncidentDTO> incidentDtoList =new ArrayList<>();
+		List<IncidentDto> incidentDtoList =new ArrayList<>();
 		for(Incident incident:incidentOpt.get() )
-			incidentDtoList.add(new IncidentDTO(incident));
+			incidentDtoList.add(new IncidentDto(incident));
 	return incidentDtoList;
 	}
 	
