@@ -1,16 +1,23 @@
 package com.hexaware.CMS.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.hexaware.CMS.entity.Role;
+
 public class RegisterDto {
 	private String name;
 	private String username;
 	private String email;
 	private String password;
-	public RegisterDto(String name, String username, String email, String password) {
+	private Set<Role> roles=new HashSet<>();
+	public RegisterDto(String name, String username, String email, String password,Set<Role> roles) {
 		super();
 		this.name = name;
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.roles=roles;
 	}
 	public RegisterDto() {	}
 	public String getName() {
@@ -37,4 +44,11 @@ public class RegisterDto {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public Set<Role> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+	
 }

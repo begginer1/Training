@@ -1,23 +1,23 @@
 package com.hexaware.CMS.dto;
 
 public class LoginDto {
-	private String name;
+	private String userName;
 	private String password;
 	public LoginDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public LoginDto(String name, String password) {
+	public LoginDto(String userName, String password) {
 		super();
-		this.name = name;
+		this.userName = userName;
 		this.password = password;
 	}
 	
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return userName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getPassword() {
 		return password;
@@ -27,6 +27,6 @@ public class LoginDto {
 	}
 	@Override
 	public String toString() {
-		return "LoginDto [name=" + name + ", password=" + password + "]";
+		return "LoginDto [name=" + userName + ", password=" + password + "]";
 	}
 }

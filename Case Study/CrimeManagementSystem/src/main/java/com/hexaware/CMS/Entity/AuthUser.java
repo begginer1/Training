@@ -2,6 +2,8 @@ package com.hexaware.CMS.entity;
 
 
 import jakarta.persistence.*;
+
+import java.util.HashSet;
 import java.util.Set;
 @Entity
 @Table(name = "auth_users")
@@ -18,7 +20,7 @@ public class AuthUser {
 	private String password;
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-	private Set<Role> roles;
+	private Set<Role> roles=new HashSet<>();
 	public AuthUser() {
 		super();
 		// TODO Auto-generated constructor stub

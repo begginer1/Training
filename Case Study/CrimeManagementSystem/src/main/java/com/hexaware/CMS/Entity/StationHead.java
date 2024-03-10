@@ -21,7 +21,7 @@ public class StationHead {
 	private int id;
 	private String name;
 	
-	@Column(name="email",unique=true)
+	@Column(name="email",unique=true,nullable = false)
 	private String email;
 	
 

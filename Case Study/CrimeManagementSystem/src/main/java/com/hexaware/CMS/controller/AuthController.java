@@ -14,10 +14,6 @@ import com.hexaware.CMS.dto.LoginDto;
 import com.hexaware.CMS.dto.RegisterDto;
 import com.hexaware.CMS.service.AuthService;
 
-
- 
-
- 
  
 @RestController
 @RequestMapping("/api/authenticate")
@@ -38,9 +34,10 @@ public class AuthController {
 
  
 	@PostMapping(value = {"/register","/signup"})
-	public ResponseEntity<String> register(@RequestBody RegisterDto dto)
+	public ResponseEntity<RegisterDto> register(@RequestBody RegisterDto dto)
 	{
 		String value = authService.register(dto);
-		return new ResponseEntity<>(value, HttpStatus.CREATED);
+		return new ResponseEntity<>(dto, HttpStatus.CREATED);
+		
 	}
 }

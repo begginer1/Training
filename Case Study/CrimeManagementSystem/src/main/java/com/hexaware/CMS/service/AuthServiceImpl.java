@@ -52,11 +52,11 @@ public class AuthServiceImpl implements AuthService {
 	public JWTAuthResponse login(LoginDto dto) {
 		System.out.println(("object received"+dto));
 		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(dto.getName(), dto.getPassword()));
+				new UsernamePasswordAuthenticationToken(dto.getUserName(), dto.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String token = jwtTokenProvider.generateToken(authentication);
 		System.out.println("Token generated : "+token);
-		AuthUser user = userRepo.findByName(dto.getName()).get();
+		AuthUser user = userRepo.findByUsername(dto.getUserName()).get();
 		System.out.println("user object found in repo "+user);
 		AuthUserDto userDto = new AuthUserDto();
 		userDto.setName(user.getName());
@@ -64,16 +64,21 @@ public class AuthServiceImpl implements AuthService {
 		userDto.setUsername(user.getUsername());
 		String role = "ROLE_USER";
 		Set<Role> roleUser = user.getRoles();
+		
 		for(Role roleTemp:roleUser)
 		{
 			if(roleTemp.getName().equalsIgnoreCase("ROLE_STATION_HEAD"))
 				role = "ROLE_STATION_HEAD";
+			else if(roleTemp.getName().equalsIgnoreCase("ROLE_OFFICER"))
+				role = "ROLE_OFFICER";
 		}
 		userDto.setRole(role);
 		return new JWTAuthResponse(token,userDto);
 	}
 	@Override
 	public String register(RegisterDto dto) {
+		Set<Role> roles=new HashSet<>();
+		Role role;
 		if(userRepo.existsByUsername(dto.getUsername()))
 			throw new BadRequestException(HttpStatus.BAD_REQUEST, "Username already exist");
 		if(userRepo.existsByEmail(dto.getEmail()))
@@ -83,8 +88,12 @@ public class AuthServiceImpl implements AuthService {
 		user.setEmail(dto.getEmail());
 		user.setUsername(dto.getUsername());
 		user.setPassword(passwordEncoder.encode(dto.getPassword()));
-		Set<Role> roles = new HashSet<>();
-		Role role = roleRepo.findByName("ROLE_USER").get();
+		if(!dto.getRoles().isEmpty()) {
+		role = roleRepo.findByName("ROLE_STATION_HEAD").get();
+		}
+		else {
+		role = roleRepo.findByName("ROLE_USER").get();
+		}
 		roles.add(role);
 		user.setRoles(roles);
 		userRepo.save(user);

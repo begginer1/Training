@@ -20,13 +20,13 @@ public class IncidentDto {
 	private String image;
 	private String description;
 	private String location;
-	private LocalDate date_Of_Incident;
+	private LocalDate dateOfIncident;
 	private Set<Officer> officerList;
 	public IncidentDto() {
 		super();
 	}
 	public IncidentDto( String incidentType, String itemName, String itemAmount, String image,
-			String description, String location, Set<Officer> officerList, LocalDate date_Of_Incident) {
+			String description, String location, Set<Officer> officerList, LocalDate dateOfIncident) {
 		super();
 		
 		this.incidentType = incidentType;
@@ -36,7 +36,7 @@ public class IncidentDto {
 		this.description = description;
 		this.location = location;
 		this.officerList = officerList;
-		this.date_Of_Incident=date_Of_Incident;
+		this.dateOfIncident=dateOfIncident;
 	}
 	
 	public IncidentDto(Incident incident) {
@@ -50,7 +50,7 @@ public class IncidentDto {
 		this.description = incident.getDescription();
 		this.location = incident.getLocation();
 		this.officerList = incident.getOfficerList();
-		this.date_Of_Incident=incident.getDate_Of_Incident();
+		this.dateOfIncident=incident.getDateOfIncident();
 	}
 	
 	public String getStatus() {
@@ -108,11 +108,11 @@ public class IncidentDto {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public LocalDate getDate_Of_Incident() {
-		return date_Of_Incident;
+	public LocalDate getDateOfIncident() {
+		return dateOfIncident;
 	}
-	public void setDate_Of_Incident(LocalDate date_Of_Incident) {
-		this.date_Of_Incident = date_Of_Incident;
+	public void setDateOfIncident(LocalDate date_Of_Incident) {
+		this.dateOfIncident = date_Of_Incident;
 	}
 	
 	

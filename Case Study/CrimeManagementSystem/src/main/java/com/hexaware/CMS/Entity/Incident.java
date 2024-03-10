@@ -39,7 +39,8 @@ public class Incident {
 	private String image;
 	private String description;
 	private String location;
-	private  LocalDate date_Of_Incident;
+	@Column(name="date_Of_Incident")
+	private  LocalDate dateOfIncident;
 	
 	@CreationTimestamp
 	@Column(name="creation_date")
@@ -53,7 +54,7 @@ public class Incident {
 		super();
 	}
 	public Incident(Integer id, String status, String incidentType, String itemName, String itemAmount, String image,
-			String description, String location,LocalDate date_Of_Incident, Set<Officer> officerList) {
+			String description, String location,LocalDate dateOfIncident, Set<Officer> officerList) {
 		super();
 		this.id = id;
 		this.status = status;
@@ -64,7 +65,7 @@ public class Incident {
 		this.description = description;
 		this.location = location;
 		this.officerList = officerList;
-		this.date_Of_Incident=date_Of_Incident;
+		this.dateOfIncident=dateOfIncident;
 	}
 	
 	public Incident(IncidentDto incident) {
@@ -77,7 +78,7 @@ public class Incident {
 		this.description = incident.getDescription();
 		this.location = incident.getLocation();
 		this.officerList = incident.getOfficerList();
-		this.date_Of_Incident=incident.getDate_Of_Incident();
+		this.dateOfIncident=incident.getDateOfIncident();
 	}
 	public Integer getId() {
 		return id;
@@ -144,17 +145,17 @@ public class Incident {
 	
 	
 	
-	public LocalDate getDate_Of_Incident() {
-		return date_Of_Incident;
+	public LocalDate getDateOfIncident() {
+		return dateOfIncident;
 	}
-	public void setDate_Of_Incident(LocalDate date_Of_Incident) {
-		this.date_Of_Incident = date_Of_Incident;
+	public void setDate_Of_Incident(LocalDate dateOfIncident) {
+		this.dateOfIncident = dateOfIncident;
 	}
 	@Override
 	public String toString() {
 		return "Incident [id=" + id + ", status=" + status + ", incidentType=" + incidentType + ", itemName=" + itemName
 				+ ", itemAmount=" + itemAmount + ", image=" + image + ", description=" + description + ", location="
-				+ location + ", date_Of_Incident=" + date_Of_Incident + ", CreationDate=" + CreationDate
+				+ location + ", date_Of_Incident=" + dateOfIncident + ", CreationDate=" + CreationDate
 				+ ", officerList=" + officerList + "]";
 	}
 	
