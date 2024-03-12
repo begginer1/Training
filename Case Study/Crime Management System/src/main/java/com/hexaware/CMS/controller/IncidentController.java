@@ -1,5 +1,7 @@
 package com.hexaware.CMS.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hexaware.CMS.dto.IncidentDto;
 import com.hexaware.CMS.entity.Incident;
 import com.hexaware.CMS.exception.AlreadyExistException;
+import com.hexaware.CMS.exception.NotExistException;
 import com.hexaware.CMS.service.IncidentService;
 
 @RestController
@@ -27,6 +30,12 @@ public class IncidentController {
 			Incident incident=new Incident(incidentDto);
 			incidentDto=new IncidentDto(incidentService.generateIncident(incident));
 			return incidentDto;
+		}
+		
+		@GetMapping("GetIncidentNo/{userId}/{incidentType}")
+		public Integer getIdByEmail(@PathVariable Integer userId,@PathVariable String incidentType) 
+		{
+			return incidentService.countIncident(userId, incidentType);
 		}
 	}
 

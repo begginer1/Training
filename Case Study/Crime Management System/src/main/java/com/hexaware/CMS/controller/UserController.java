@@ -22,9 +22,10 @@ import com.hexaware.CMS.exception.AlreadyExistException;
 import com.hexaware.CMS.exception.NotExistException;
 import com.hexaware.CMS.service.UserService;
 
-@CrossOrigin("http://localhost:3000")
+
 @RestController
-@RequestMapping("api/v1/User/")
+@RequestMapping("api/v1/User")
+@CrossOrigin("http://localhost:3000")
 public class UserController {
 
 	private UserService userService;
@@ -34,14 +35,14 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@PostMapping("CreateUser")
+	@PostMapping("/CreateUser")
 	public ResponseEntity<User>CreateUser(@RequestBody UserDto userDto) throws AlreadyExistException{
 		User user=new User(userDto);
 		userService.generateIncident(user);
 		 userDto=new UserDto(user);
 		return ResponseEntity.ok(user);
 	}
-	@PostMapping("AddIncident/{user_id}")
+	@PostMapping("/AddIncident/{user_id}")
 	public ResponseEntity<IncidentDto>AddIncident(@PathVariable int user_id, @RequestBody IncidentDto incidentDto) throws NotExistException{
 		Incident incident=new Incident(incidentDto);
 		userService.AddIncident(user_id, incident);
@@ -49,21 +50,21 @@ public class UserController {
 		return ResponseEntity.ok(incidentDto);
 	}
 
-	@GetMapping("GenerateReport")
+	@GetMapping("/GenerateReport")
 	public UserDto GetReport(@RequestParam int incidentId) throws NotExistException {
 		User user=userService.generateReportById(incidentId).get();
 		UserDto userDto=new UserDto(user);
 	return userDto;
 	}
 
-	@GetMapping("TrackProgress")
+	@GetMapping("/TrackProgress")
 	public IncidentDto GetStatus(@RequestParam int incidentId) throws NotExistException {
 		Incident incident=userService.trackIncidentById(incidentId).get();
 		IncidentDto incidentDto= new IncidentDto(incident);
 	return incidentDto;
 	}
 
-	@GetMapping("GetAllIncident/{userId}")
+	@GetMapping("/GetAllIncident/{userId}")
 	public List<IncidentDto> GetIncident(@PathVariable int userId) throws NotExistException {
 		Optional<List<Incident>> incidentOpt=userService.getAllIncident(userId);
 		List<IncidentDto> incidentDtoList =new ArrayList<>();
@@ -71,6 +72,14 @@ public class UserController {
 			incidentDtoList.add(new IncidentDto(incident));
 	return incidentDtoList;
 	}
+	
+	@GetMapping("/GetIdByEmail/{email}")
+	public Integer getIdByEmail(@PathVariable String email) throws NotExistException
+	{
+		Integer userId=userService.getIdByEmail(email).get();
+		return userId;
+	}
+	
 	
 	
 }

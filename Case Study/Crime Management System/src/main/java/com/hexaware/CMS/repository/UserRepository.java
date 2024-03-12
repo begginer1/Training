@@ -17,6 +17,8 @@ public interface UserRepository extends JpaRepository<User,Integer>  {
 	@Query(value="select * from user where user_id=:user_id",nativeQuery =true)
 	User getUser(int user_id);
 	
+	@Query(value="select user_id from user where email=:email",nativeQuery = true)
+	Integer getIdByEmail(String email);
 //	Incident generateReportAll(int user_id);
 //	
 //	@Query(value="select status from incident where incident_id=:incident_id",nativeQuery = true)

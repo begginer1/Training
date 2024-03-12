@@ -18,4 +18,5 @@ public interface UserService {
 	Optional<Incident> trackIncidentById(int incident_id)throws NotExistException;
 	Optional<List<Incident>> getAllIncident(int fkUserId) throws NotExistException;
 	Optional<Incident>AddIncident(int user_id,Incident inciden)throws NotExistException;
+	Optional<Integer> getIdByEmail(String email) throws NotExistException;
 }

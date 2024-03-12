@@ -20,6 +20,12 @@ public class IncidentServiceImpl implements IncidentService {
 	public Incident generateIncident(Incident incident) {
 		return incidentRepository.save(incident);
 	}
+
+	@Override
+	public Integer countIncident(Integer userId, String incidentType) {
+		
+		return incidentRepository.countIncident(userId, incidentType);
+	}
 	
 
 }

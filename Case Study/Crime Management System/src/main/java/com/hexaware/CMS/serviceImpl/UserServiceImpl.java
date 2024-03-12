@@ -98,6 +98,19 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	public Optional<Integer> getIdByEmail(String email) throws NotExistException {
+	Integer userId;
+		try {
+		userId=userRepository.getIdByEmail(email);
+		}
+		catch(Exception e)
+		{
+			throw new NotExistException("User with email Not found");
+		}
+		return Optional.of(userId);
+	}
+
 
 	
 

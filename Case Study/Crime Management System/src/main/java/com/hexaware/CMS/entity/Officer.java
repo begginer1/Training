@@ -33,6 +33,7 @@ public class Officer {
 	@Column(name="officer_rank")
 	private String rank;
 	
+	@Column(name="email",unique=true,nullable=false)
 	private String email;
 	@JsonIgnore
 	@ManyToMany(fetch = FetchType.EAGER,mappedBy="officerList")
