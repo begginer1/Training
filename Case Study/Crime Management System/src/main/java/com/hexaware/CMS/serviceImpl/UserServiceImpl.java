@@ -1,10 +1,10 @@
 package com.hexaware.CMS.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-
 
 import com.hexaware.CMS.entity.Incident;
 import com.hexaware.CMS.entity.User;
@@ -99,16 +99,27 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<Integer> getIdByEmail(String email) throws NotExistException {
-	Integer userId;
-		try {
-		userId=userRepository.getIdByEmail(email);
-		}
+	public Optional<User> getIdByEmail(String email) throws NotExistException {
+		User user=null;
+	try {
+	 user=userRepository.getIdByEmail(email).get(0);
+		
+	}
 		catch(Exception e)
 		{
 			throw new NotExistException("User with email Not found");
 		}
-		return Optional.of(userId);
+		return Optional.of(user);
+	}
+
+	@Override
+	public Optional<User> getUserByID(Integer userId) throws NotExistException {
+		Optional <User> userOpt=userRepository.findById(userId);
+		if(userOpt.isEmpty())
+		{
+			throw new NotExistException("User Not found");
+		}
+		return userOpt;
 	}
 
 

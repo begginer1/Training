@@ -74,12 +74,20 @@ public class UserController {
 	}
 	
 	@GetMapping("/GetIdByEmail/{email}")
-	public Integer getIdByEmail(@PathVariable String email) throws NotExistException
+	public User getIdByEmail(@PathVariable String email) throws NotExistException
 	{
-		Integer userId=userService.getIdByEmail(email).get();
-		return userId;
+		User user;
+		user=userService.getIdByEmail(email).get();
+		
+		return user;
 	}
 	
+	@GetMapping("/GetUser/{userId}")
+	public User getUserById(@PathVariable Integer userId) throws NotExistException
+	{
+		User user=userService.getUserByID(userId).get();
+		return user;
+	}
 	
 	
 }

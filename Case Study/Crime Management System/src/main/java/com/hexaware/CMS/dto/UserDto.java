@@ -14,8 +14,6 @@ import com.hexaware.CMS.entity.User;
 //stationhead-incidentList 1 to many
 //1 station head -officer many to many
 
-
-
 public class UserDto {
 	
 	private Integer id;
