@@ -1,5 +1,7 @@
 package com.hexaware.CMS.entity;
 
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +24,10 @@ public class Role {
 		this.id = id;
 		this.name = name;
 	}
+	
+	public Role(String roleName) {
+        this.name = roleName;
+    }
 	public Long getId() {
 		return id;
 	}
@@ -35,7 +41,32 @@ public class Role {
 		this.name = name;
 	}
 	
-	public Role(String roleName) {
-        this.name = roleName;
-    }
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(name);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+	        return true;
+	    }
+	    
+	    // Check if the object is null or not an instance of Role
+	    if (obj == null || getClass() != obj.getClass()) {
+	        return false;
+	    }
+
+	    // Cast the object to Role
+	    Role role=(Role)obj;
+	    
+	    // Compare the names ignoring case
+	    return name.equalsIgnoreCase(role.getName());			
+	}
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", name=" + name + "]";
+	}
+	
+	
 }

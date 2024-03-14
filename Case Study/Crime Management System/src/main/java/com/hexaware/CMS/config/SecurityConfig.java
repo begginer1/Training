@@ -51,7 +51,7 @@ public class SecurityConfig {
 			authorize.requestMatchers("/api/authenticate/**").permitAll()
 //			.requestMatchers("/login","/signin").permitAll()
 			.requestMatchers("api/v1/User/**").hasAuthority("ROLE_USER")
-			.requestMatchers("api/v1/Stationhead/**").hasAuthority("ROLE_OFFICER")
+			.requestMatchers("api/v1/Officer/**").hasAuthority("ROLE_OFFICER")
 			.requestMatchers("api/v1/Stationhead/**").hasAuthority("ROLE_STATION_HEAD")
 			.anyRequest().authenticated())
 			.exceptionHandling(exception -> exception.authenticationEntryPoint(authenticationEntryPoint))

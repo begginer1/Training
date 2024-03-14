@@ -26,6 +26,12 @@ public class IncidentServiceImpl implements IncidentService {
 		
 		return incidentRepository.countIncident(userId, incidentType);
 	}
+
+	@Override
+	public Boolean deleteIncident(Integer incidentId) {
+		incidentRepository.deleteById(incidentId);
+		return true;
+	}
 	
 
 }

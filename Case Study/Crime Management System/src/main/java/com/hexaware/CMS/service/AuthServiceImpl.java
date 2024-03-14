@@ -65,12 +65,18 @@ public class AuthServiceImpl implements AuthService {
 		String role = "ROLE_USER";
 		Set<Role> roleUser = user.getRoles();
 		
-		for(Role roleTemp:roleUser)
-		{
-			if(roleTemp.getName().equalsIgnoreCase("ROLE_STATION_HEAD"))
-				role = "ROLE_STATION_HEAD";
-			else if(roleTemp.getName().equalsIgnoreCase("ROLE_OFFICER"))
-				role = "ROLE_OFFICER";
+//		for(Role roleTemp:roleUser)
+//		{
+//			if(roleTemp.getName().equalsIgnoreCase("ROLE_STATION_HEAD"))
+//				role = "ROLE_STATION_HEAD";
+//			else if(roleTemp.getName().equalsIgnoreCase("ROLE_OFFICER"))
+//				role = "ROLE_OFFICER";
+//		}
+		if(user.getRoles().contains(new Role("ROLE_OFFICER"))) {
+			role = "ROLE_OFFICER";
+		}
+		else if(user.getRoles().contains(new Role("ROLE_STATION_HEAD"))) {
+		role = "ROLE_STATION_HEAD";
 		}
 		userDto.setRole(role);
 		return new JWTAuthResponse(token,userDto);
@@ -88,7 +94,12 @@ public class AuthServiceImpl implements AuthService {
 		user.setEmail(dto.getEmail());
 		user.setUsername(dto.getUsername());
 		user.setPassword(passwordEncoder.encode(dto.getPassword()));
-		if(!dto.getRoles().isEmpty()) {
+		
+		
+		if(dto.getRoles().contains(new Role("ROLE_OFFICER"))) {
+			role = roleRepo.findByName("ROLE_OFFICER").get();
+		}
+		else if(dto.getRoles().contains(new Role("ROLE_STATION_HEAD"))) {
 		role = roleRepo.findByName("ROLE_STATION_HEAD").get();
 		}
 		else {

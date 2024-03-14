@@ -7,4 +7,5 @@ public interface IncidentService {
 
 	Incident generateIncident(Incident incident);
 	Integer countIncident(Integer userId,String incidentType);
+	Boolean deleteIncident(Integer incidentId);
 }

@@ -2,6 +2,7 @@ package com.hexaware.CMS.controller;
 
 import java.util.Optional;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import com.hexaware.CMS.service.OfficerService;
 
 @RestController
 @RequestMapping("api/v1/Officer/")
+@CrossOrigin("http://localhost:3000")
 public class OfficerController {
 
 		private OfficerService officerService;
