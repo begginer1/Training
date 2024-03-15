@@ -32,6 +32,12 @@ public class IncidentServiceImpl implements IncidentService {
 		incidentRepository.deleteById(incidentId);
 		return true;
 	}
+
+	@Override
+	public Integer officerAssignIncidentCount(Integer officerId, String incidentType) {
+		return incidentRepository.countIncidentsByOfficerListIdAndIncidentTypeContaining(officerId, incidentType);
+		
+	}
 	
 
 }

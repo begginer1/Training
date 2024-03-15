@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.hexaware.CMS.entity.Incident;
+import com.hexaware.CMS.entity.Officer;
 
 public interface IncidentRepository extends JpaRepository<Incident,Integer> {
 
@@ -17,5 +18,9 @@ public interface IncidentRepository extends JpaRepository<Incident,Integer> {
 	@Query(value = "select count(*) from incident where fk_user_id=:fk_userId and incident_type=:incidentType" ,nativeQuery = true)
 	Integer countIncident(int fk_userId,String incidentType);
 	
-
+//	 List<Incident> findByOfficerListIn(List<Officer> officerList);
+	 List<Incident> findByOfficerListId(int officerId);
+	 
+	 
+	 Integer countIncidentsByOfficerListIdAndIncidentTypeContaining(int officerId, String incidentType);
 }
