@@ -52,9 +52,9 @@ public class StationHeadController {
 	}
 
 	@DeleteMapping("DeleteOfficer")
-	public List<OfficerDto> RemoveOfficer(@RequestParam int officer_id) {
+	public Boolean RemoveOfficer(@RequestParam int officerId) {
 
-		return stationHeadService.removeOfficer(officer_id).stream().map((officer)->new OfficerDto(officer)).toList();
+		return stationHeadService.removeOfficer(officerId);
 	}
 
 	@PostMapping("RegisterOfficer")
@@ -72,8 +72,8 @@ public class StationHeadController {
 	}
 
 	@PutMapping("ChangeStatus")
-	public ResponseEntity<IncidentDto> ChangeStatus(@RequestParam Integer incident_id) throws NotExistException {
-		Optional<Incident>incidentOpt=stationHeadService.ChangeStatusFromCloseToVerified(incident_id);
+	public ResponseEntity<IncidentDto> ChangeStatus(@RequestParam Integer incidentId) throws NotExistException {
+		Optional<Incident>incidentOpt=stationHeadService.ChangeStatusFromCloseToVerified(incidentId);
 				if(!(incidentOpt.isPresent()))
 				throw new NotExistException("Incident Not Found");
 				IncidentDto incidentDto=new IncidentDto(incidentOpt.get());
@@ -91,9 +91,9 @@ public class StationHeadController {
 
 	}
 	
-	@PostMapping("AssignOfficerToIncident/{incident_id}/officer/{officer_id}")
-	public ResponseEntity<IncidentDto> AssignOfficerToIncident(@PathVariable Integer incident_id,@PathVariable Integer officer_id) throws NotExistException {
-		IncidentDto incidentDto=new IncidentDto(stationHeadService.AssignOfficerToIncident(incident_id,officer_id));
+	@PostMapping("AssignOfficerToIncident/{incidentId}/officer/{officerId}")
+	public ResponseEntity<IncidentDto> AssignOfficerToIncident(@PathVariable Integer incidentId,@PathVariable Integer officerId) throws NotExistException {
+		IncidentDto incidentDto=new IncidentDto(stationHeadService.AssignOfficerToIncident(incidentId,officerId));
 		return ResponseEntity.ok(incidentDto);
 	}
 	

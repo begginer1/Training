@@ -1,6 +1,7 @@
 package com.hexaware.CMS.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,7 +46,7 @@ public class IncidentController {
 		{
 			return incidentService.officerAssignIncidentCount(officerId, incidentType);
 		}
-		@GetMapping("deleteIncident/{incidentId}")
+		@DeleteMapping("deleteIncident/{incidentId}")
 		public Boolean deleteIncident(@PathVariable Integer incidentId) 
 		{
 			return incidentService.deleteIncident(incidentId);

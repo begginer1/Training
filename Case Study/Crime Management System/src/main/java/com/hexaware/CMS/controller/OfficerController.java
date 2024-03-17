@@ -36,9 +36,9 @@ public class OfficerController {
 
 		
 		@GetMapping("ViewIncidentById")
-		public Optional<IncidentDto> ViewIncident(@RequestParam int incident_id)throws NotExistException {
+		public Optional<IncidentDto> ViewIncident(@RequestParam int incidentId)throws NotExistException {
 			
-			Optional<Incident> incidentOpt= officerService.viewIncident(incident_id);
+			Optional<Incident> incidentOpt= officerService.viewIncident(incidentId);
 			IncidentDto incidentDto=new IncidentDto(incidentOpt.get());
 			return Optional.ofNullable(incidentDto);
 		}
@@ -56,15 +56,15 @@ public class OfficerController {
 		}
 		
 		@GetMapping("DownloadIncidentById")
-		public Optional<IncidentDto> DownloadIncident(@RequestParam int incident_id) throws NotExistException {
-			Optional<Incident> incidentOpt= officerService.downloadIncidentdetails(incident_id);
+		public Optional<IncidentDto> DownloadIncident(@RequestParam int incidentId) throws NotExistException {
+			Optional<Incident> incidentOpt= officerService.downloadIncidentdetails(incidentId);
 			IncidentDto incidentDto=new IncidentDto(incidentOpt.get());
 			return Optional.ofNullable(incidentDto);
 		}
 		
-		@PutMapping("ClosedIncidentById/{incident_id}")
-		public Optional<IncidentDto> ChangeStatus(@PathVariable int incident_id) throws NotExistException {
-			Optional<Incident> incidentOpt=officerService.ChangeStatusToClosed(incident_id);
+		@PutMapping("ClosedIncidentById")
+		public Optional<IncidentDto> ChangeStatus(@RequestParam int incidentId) throws NotExistException {
+			Optional<Incident> incidentOpt=officerService.ChangeStatusToClosed(incidentId);
 			IncidentDto incidentDto=new IncidentDto(incidentOpt.get());
 			return Optional.ofNullable(incidentDto);
 		}

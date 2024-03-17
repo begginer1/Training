@@ -42,10 +42,10 @@ public class StationHeadServiceImpl implements StationHeadService{
 
 
 	@Override
-	public List<Officer> removeOfficer(int officer_id) {
+	public Boolean removeOfficer(int officer_id) {
 		officerRepository.deleteById(officer_id);
-		List<Officer> officerList=officerRepository.findAll();
-		return officerList;
+		return true;
+
 	}
 
 

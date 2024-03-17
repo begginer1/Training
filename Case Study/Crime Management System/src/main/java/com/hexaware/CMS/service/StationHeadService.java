@@ -11,7 +11,7 @@ import com.hexaware.CMS.exception.NotExistException;
 
 public interface StationHeadService {
 	public StationHead createStationHead(StationHead stationhead);
-	List <Officer>removeOfficer(int officer_id);
+	Boolean removeOfficer(int officer_id);
 	Officer addOfficer(Officer officer);
 	Optional<Incident> ChangeStatusFromCloseToVerified(Integer incident_id);
 	List<Incident> ViewAllIncidents();
