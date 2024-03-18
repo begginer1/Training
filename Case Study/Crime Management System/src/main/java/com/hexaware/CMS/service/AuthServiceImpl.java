@@ -50,7 +50,7 @@ public class AuthServiceImpl implements AuthService {
 	}
 	@Override
 	public JWTAuthResponse login(LoginDto dto) {
-		System.out.println(("object received"+dto));
+//		System.out.println(("object received"+dto));
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(dto.getUserName(), dto.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
